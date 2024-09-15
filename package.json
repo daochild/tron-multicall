@@ -2,7 +2,7 @@
   "name": "@daochild/tron-multicall",
   "version": "1.2.0",
   "description": "",
-  "main": "tronbox.js",
+  "main": "tronbox-config.js",
   "directories": {
     "test": "test"
   },
