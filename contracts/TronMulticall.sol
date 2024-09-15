@@ -105,7 +105,7 @@ contract TronMulticall is Multicall {
 	}
 
 	/// @notice Returns tron TRC10 token account balance
-	function getTokenBalance(address accountAddress, trcToken id) public view returns (uint256 balance){
+	function getTokenBalance(address accountAddress, trcToken id) public view returns (uint256 balance) {
 		balance = accountAddress.tokenBalance(id);
 	}
 }
