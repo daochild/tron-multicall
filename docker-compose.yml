@@ -1,6 +1,6 @@
 services:
   tron:
-    image: trontools/quickstart
+    image: tronbox/tre
     container_name: tron
     ports:
       - "127.0.0.1:9090:9090"
