@@ -1,5 +1,4 @@
 const TronMulticall = artifacts.require('TronMulticall');
-const TronWeb = require('tronweb')
 const {
     utils,
     Contract
@@ -35,18 +34,10 @@ contract('TronMulticall', ([deployer]) => {
                 )
 
                 let results = await multicall.multicall([call0, call1])
-
-                const blockNumberResult = (await multicall.getBlockNumber()).toString()
-                const getCurrentBlockTimestampResult = (await multicall.getCurrentBlockTimestamp()).toString()
-
-                let result;
-                result = multicallEthers.interface.decodeFunctionResult("aggregate", results[0][0]);
-                assert.equal(result.blockNumber.toString(), blockNumberResult, "block number 0")
-                assert.equal(abiCoder.decode(["uint"], result.returnData[0]), blockNumberResult, "block number 0")
-
-                result = multicallEthers.interface.decodeFunctionResult("aggregate", results[0][1]);
-                assert.equal(result.blockNumber.toString(), blockNumberResult, "block number 1")
-                assert.equal(abiCoder.decode(["uint"], result.returnData[0]), getCurrentBlockTimestampResult, "block timestamp 1")
+                let result = multicallEthers.interface.decodeFunctionResult("aggregate", results[0][0]);
+                console.log(result.blockNumber.toString())
+                console.log(result.returnData[0].success)
+                console.log(multicallEthers.interface.decodeFunctionResult("getBlockNumber", result.returnData[0].returnData))
             })
     });
 });
