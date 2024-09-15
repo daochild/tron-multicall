@@ -44,7 +44,7 @@ contract TronMulticall {
     function aggregate(
         Call[] calldata calls
     )
-        external
+        public
         payable
         returns (uint256 blockNumber, Result[] memory returnData)
     {
@@ -75,7 +75,7 @@ contract TronMulticall {
     function aggregateWithFailure(
         CallFailure[] calldata calls
     )
-        external
+        public
         payable
         returns (uint256 blockNumber, Result[] memory returnData)
     {
@@ -103,7 +103,7 @@ contract TronMulticall {
     function aggregateWithValue(
         Call3Value[] calldata calls
     )
-        external
+        public
         payable
         returns (uint256 blockNumber, Result[] memory returnData)
     {
@@ -141,7 +141,7 @@ contract TronMulticall {
 
     function aggregateStatic(
         Call[] calldata calls
-    ) external view returns (uint256 blockNumber, Result[] memory returnData) {
+    ) public view returns (uint256 blockNumber, Result[] memory returnData) {
         blockNumber = block.number;
         uint256 length = calls.length;
         returnData = new Result[](length);
@@ -168,7 +168,7 @@ contract TronMulticall {
 
     function aggregateStaticWithFailure(
         CallFailure[] calldata calls
-    ) external view returns (uint256 blockNumber, Result[] memory returnData) {
+    ) public view returns (uint256 blockNumber, Result[] memory returnData) {
         blockNumber = block.number;
         uint256 length = calls.length;
         returnData = new Result[](length);
@@ -187,6 +187,24 @@ contract TronMulticall {
             unchecked {
                 ++i;
             }
+        }
+    }
+
+    function multicall(bytes[] calldata data) public returns (bytes[] memory results) {
+        results = new bytes[](data.length);
+        for (uint256 i = 0; i < data.length; i++) {
+            (bool success, bytes memory result) = address(this).call(data[i]);
+
+            if (!success) {
+                // Next 5 lines from https://ethereum.stackexchange.com/a/83577
+                if (result.length < 68) revert();
+                assembly {
+                    result := add(result, 0x04)
+                }
+                revert(abi.decode(result, (string)));
+            }
+
+            results[i] = result;
         }
     }
 
