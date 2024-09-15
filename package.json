@@ -1,18 +1,27 @@
 {
-  "name": "tronbox-test",
-  "version": "1.0.0",
+  "name": "@daochild/tron-multicall",
+  "version": "1.2.0",
   "description": "",
-  "main": "tronbox-config.js",
+  "main": "tronbox.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prettier": "npx prettier --write ./contracts/**/*.sol",
+    "lint": "npx solhint ./contracts/**/*.sol --ignore-path .solhintignore"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "dotenv": "^16.4.5",
+    "eslint": "^9.10.0",
     "ethers": "^5.7.2",
-    "tronweb": "^5.1.0"
+    "prettier": "^3.3.3",
+    "prettier-plugin-solidity": "^1.4.1",
+    "solhint": "^5.0.3",
+    "solhint-community": "^4.0.0",
+    "solhint-plugin-prettier": "^0.1.0",
+    "tronbox": "^4.0.0",
+    "tronweb": "^5.3.2"
   }
 }

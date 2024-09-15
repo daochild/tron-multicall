@@ -1,0 +1,15 @@
+services:
+  tron:
+    image: trontools/quickstart
+    container_name: tron
+    ports:
+      - "127.0.0.1:9090:9090"
+    environment:
+      - defaultBalance=100000
+      - showQueryString=true
+      - showBody=true
+      - formatJson=true
+    restart: unless-stopped
+
+
+

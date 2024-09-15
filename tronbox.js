@@ -1,20 +1,11 @@
+require('dotenv').config();
+
 const port = process.env.HOST_PORT || 9090
 
 module.exports = {
   networks: {
     mainnet: {
-      // Don't put your private key here:
       privateKey: process.env.PRIVATE_KEY_MAINNET,
-      /*
-Create a .env file (it must be gitignored) containing something like
-
-  export PRIVATE_KEY_MAINNET=4E7FEC...656243
-
-Then, run the migration with:
-
-  source .env && tronbox migrate --network mainnet
-
-      */
       userFeePercentage: 100,
       feeLimit: 1000 * 1e6,
       fullHost: 'https://api.trongrid.io',
@@ -36,10 +27,10 @@ Then, run the migration with:
     },
     development: {
       // For tronbox/tre docker image
-      privateKey: '0000000000000000000000000000000000000000000000000000000000000001',
+      privateKey: process.env.DEFAULT_DOCKER_KEY,
       userFeePercentage: 0,
       feeLimit: 1000 * 1e6,
-      fullHost: 'http://127.0.0.1:' + port,
+      fullHost: `http://127.0.0.1:${port}`,
       network_id: '9'
     },
     compilers: {
